@@ -25,7 +25,8 @@ class EnigmaTest < MiniTest::Test
     end
   end
 
-  def can_make_key_from_given_digits
+  def test_can_make_key_from_given_digits
     assert_equal [24, 46, 68, 80], @enigma.make_key("24680")
   end
+
 end
