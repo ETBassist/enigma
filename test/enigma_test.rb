@@ -15,6 +15,6 @@ class EnigmaTest < MiniTest::Test
 
   def test_it_track_date
     Date.stubs(:today).returns(Date.new(2020,9,17))
-    assert_equal "091720", @enigma.date
+    assert_equal "091720", @enigma.todays_date
   end
 end
