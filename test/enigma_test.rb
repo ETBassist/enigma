@@ -18,8 +18,10 @@ class EnigmaTest < MiniTest::Test
     assert_equal "091720", @enigma.todays_date
   end
 
-  def test_it_can_generate_a_key
-    Array.stubs(:sample).returns([2, 4, 6, 8, 0])
-    assert_equal "24680", @enigma.generate_key
+  def test_it_can_make_key
+    numbers = (0..9).to_a
+    @enigma.make_key.split('').each do |number|
+      assert_includes numbers, number.to_i
+    end
   end
 end
