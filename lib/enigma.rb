@@ -18,7 +18,7 @@ class Enigma
 
   def make_offsets(date)
     squared_date = date.to_i ** 2
-    squared_date.digits[0..3].reverse
+    squared_date.digits.reverse[-4..-1]
   end
 
   def generate_shifts(key, offsets)
