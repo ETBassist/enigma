@@ -9,4 +9,10 @@ class Enigma
   def key_digits
     (0..9).to_a.sample(5).join
   end
+
+  def make_key(digits)
+    digits.split('').each_cons(2).map do |pair|
+      pair.join.to_i
+    end
+  end
 end
