@@ -20,4 +20,10 @@ class Enigma
     squared_date = date.to_i ** 2
     squared_date.digits[0..3].reverse
   end
+
+  def generate_shifts(key, offsets)
+    key.zip(offsets).map do |pair|
+      pair.sum
+    end
+  end
 end
