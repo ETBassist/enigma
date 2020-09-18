@@ -20,8 +20,12 @@ class EnigmaTest < MiniTest::Test
 
   def test_it_can_make_key
     numbers = (0..9).to_a
-    @enigma.make_key.split('').each do |number|
+    @enigma.key_digits.split('').each do |number|
       assert_includes numbers, number.to_i
     end
+  end
+
+  def can_make_key_from_given_digits
+    assert_equal [24, 46, 68, 80], @enigma.make_key("24680")
   end
 end
