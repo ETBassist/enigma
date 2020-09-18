@@ -29,4 +29,7 @@ class EnigmaTest < MiniTest::Test
     assert_equal [24, 46, 68, 80], @enigma.make_key("24680")
   end
 
+  def test_it_can_generate_offset_from_given_date
+    assert_equal [1, 0, 2, 5], @enigma.make_offsets("040895") 
+  end
 end
