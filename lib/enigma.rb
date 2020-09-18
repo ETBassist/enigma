@@ -15,4 +15,9 @@ class Enigma
       pair.join.to_i
     end
   end
+
+  def make_offsets(date)
+    squared_date = date.to_i ** 2
+    squared_date.digits[0..3].reverse
+  end
 end
