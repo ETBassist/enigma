@@ -15,7 +15,7 @@ class EnigmaTest < MiniTest::Test
 
   def test_it_track_date
     Date.stubs(:today).returns(Date.new(2020,9,17))
-    assert_equal "091720", @enigma.todays_date
+    assert_equal '091720', @enigma.todays_date
   end
 
   def test_it_can_make_key
@@ -26,11 +26,11 @@ class EnigmaTest < MiniTest::Test
   end
 
   def test_can_make_key_from_given_digits
-    assert_equal [24, 46, 68, 80], @enigma.make_key("24680")
+    assert_equal [24, 46, 68, 80], @enigma.make_key('24680')
   end
 
   def test_it_can_generate_offset_from_given_date
-    assert_equal [1, 0, 2, 5], @enigma.make_offsets("040895") 
+    assert_equal [1, 0, 2, 5], @enigma.make_offsets('040895') 
   end
 
   def test_can_generate_shifts
