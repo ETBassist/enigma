@@ -1,9 +1,8 @@
 require 'Date'
 
 class Enigma
-
   def todays_date
-    Date.today.strftime("%m%d%y")
+    Date.today.strftime('%m%d%y')
   end
 
   def key_digits
@@ -17,13 +16,11 @@ class Enigma
   end
 
   def make_offsets(date)
-    squared_date = date.to_i ** 2
+    squared_date = date.to_i**2
     squared_date.digits.reverse[-4..-1]
   end
 
   def generate_shifts(key, offsets)
-    key.zip(offsets).map do |pair|
-      pair.sum
-    end
+    key.zip(offsets).map(&:sum)
   end
 end

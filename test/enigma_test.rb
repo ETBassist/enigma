@@ -5,7 +5,7 @@ require 'mocha/minitest'
 require './lib/enigma'
 
 class EnigmaTest < MiniTest::Test
-  def setup 
+  def setup
     @enigma = Enigma.new
   end
 
@@ -14,7 +14,7 @@ class EnigmaTest < MiniTest::Test
   end
 
   def test_it_track_date
-    Date.stubs(:today).returns(Date.new(2020,9,17))
+    Date.stubs(:today).returns(Date.new(2020, 9, 17))
     assert_equal '091720', @enigma.todays_date
   end
 
@@ -30,7 +30,7 @@ class EnigmaTest < MiniTest::Test
   end
 
   def test_it_can_generate_offset_from_given_date
-    assert_equal [1, 0, 2, 5], @enigma.make_offsets('040895') 
+    assert_equal [1, 0, 2, 5], @enigma.make_offsets('040895')
   end
 
   def test_can_generate_shifts
