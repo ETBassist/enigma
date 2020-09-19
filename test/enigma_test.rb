@@ -69,5 +69,6 @@ class EnigmaTest < MiniTest::Test
   def test_it_can_shift_letters
     shifts = [3, 27, 73, 20]
     assert_equal "keder ohulw!", @enigma.shift_letters('HELLO WORLD!', shifts)
+    assert_equal "hello world!", @enigma.shift_letters("keder ohulw!", shifts, "backwards")
   end
 end
