@@ -6,11 +6,7 @@ class Enigma
   end
 
   def key_digits
-    digits = []
-    5.times do 
-      digits << rand(9)
-    end
-    digits.join
+    5.times.map {rand(9)}.join
   end
 
   def make_key(digits)
