@@ -27,8 +27,11 @@ class Enigma
     key.zip(offsets).map(&:sum)
   end
 
-  def shift_letters(message, shifts)
+  def shift_letters(message, shifts, default = "forward")
     alphabet = ('a'..'z').to_a << ' '
+    if default != "forward"
+      shifts = shifts.map { |shift| -shift }
+    end
     message.downcase.split('').map.with_index do |character, char_index|
       if alphabet.include?(character)
         alphabet.rotate(shifts[char_index % 4])[alphabet.index(character)]
