@@ -7,7 +7,7 @@ encrypted_text = encrypted_message.read
 encrypted_message.close
 
 enigma = Enigma.new
-require "pry";binding.pry 
+
 decoded = enigma.decrypt(encrypted_text, ARGV[2], ARGV[3])
 decrypted_file = File.open(ARGV[1], 'w')
 decrypted_file.write(decoded[:decryption])
