@@ -25,10 +25,8 @@ class Enigma
   end
 
   def encrypt(message, digits = key_digits, date = todays_date)
-    alphabet = ("a".."z").to_a << " "
-    key = make_key(digits)
-    offset = make_offsets(date)
-    shifts = generate_shifts(key, offset)
+    alphabet = ('a'..'z').to_a << ' '
+    shifts = generate_shifts(make_key(digits), make_offsets(date))
     encoded = message.split('').map.with_index do |character, character_index|
       alphabet.rotate(shifts[character_index % 4])[alphabet.index(character)]
     end.join
