@@ -57,14 +57,8 @@ class Enigma
     alphabet = ('a'..'z').to_a << ' '
     known_characters = ['d', 'n', 'e', ' ']
     actual_characters = message.split('')[-4..-1].reverse
-    known_indices = known_characters.map do |character|
-      alphabet.index(character)
-    end
-    actual_indices = actual_characters.map do |character|
-      alphabet.index(character)
-    end
-    shifts = actual_indices.zip(known_indices).map do |pair|
-      pair[0] - pair[1]
+    shifts = actual_characters.map.with_index do |character, char_index|
+      alphabet.index(character) - alphabet.index(known_characters[char_index])
     end
     decoded = message.reverse.split('').map.with_index do |character, char_index|
       if alphabet.include?(character)
@@ -73,15 +67,5 @@ class Enigma
         character
       end
     end.reverse.join
+    { decryption: decoded, date: date, key: 'key here' }
   end
-# possible generation of key from cracked digits
-# keys = [2, 27, 71, 15]
-# digits = keys.flat_map.with_index do |key, key_index|
-#   if key_index != 0
-#      until key.digits.last == keys[key_index - 1].digits.first
-#         key += shifts[key_index]
-#      end
-#      key.digits.reverse
-# end.uniq
-#=> [2, 7, 1, 5]
-end
