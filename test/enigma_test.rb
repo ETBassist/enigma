@@ -57,7 +57,6 @@ class EnigmaTest < MiniTest::Test
   end
  
   def test_it_can_crack_text_with_given_date
-    skip
     expected = {
       decryption: "hello world end",
       date: "291018",

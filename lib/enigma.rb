@@ -42,28 +42,14 @@ class Enigma
   end
 
   def encrypt(message, digits = key_digits, date = todays_date)
-    alphabet = ('a'..'z').to_a << ' '
     shifts = generate_shifts(make_key(digits), make_offsets(date))
-    encoded = message.downcase.split('').map.with_index do |character, char_index|
-      if alphabet.include?(character)
-        alphabet.rotate(shifts[char_index % 4])[alphabet.index(character)]
-      else
-        character
-      end
-    end.join
+    encoded = shift_letters(message, shifts)
     { encryption: encoded, key: digits, date: date }
   end
 
   def decrypt(message, digits, date = todays_date)
-    alphabet = ('a'..'z').to_a << ' '
     shifts = generate_shifts(make_key(digits), make_offsets(date))
-    decoded = message.split('').map.with_index do |character, char_index|
-      if alphabet.include?(character)
-        alphabet.rotate(-shifts[char_index % 4])[alphabet.index(character)]
-      else
-        character
-      end
-    end.join
+    decoded = shift_letters(message, shifts, "backwards")
     { decryption: decoded, key: digits, date: date }
   end
 
@@ -74,13 +60,7 @@ class Enigma
     shifts = actual_characters.map.with_index do |character, char_index|
       alphabet.index(character) - alphabet.index(known_characters[char_index])
     end
-    decoded = message.reverse.split('').map.with_index do |character, char_index|
-      if alphabet.include?(character)
-        alphabet.rotate(-shifts[char_index % 4])[alphabet.index(character)]
-      else
-        character
-      end
-    end.reverse.join
+    decoded = shift_letters(message.reverse, shifts, "backwards").reverse
     { decryption: decoded, date: date, key: 'key here' }
   end
 end
