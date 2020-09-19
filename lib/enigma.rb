@@ -27,6 +27,17 @@ class Enigma
     key.zip(offsets).map(&:sum)
   end
 
+  def shift_letters(message, shifts)
+    alphabet = ('a'..'z').to_a << ' '
+    message.downcase.split('').map.with_index do |character, char_index|
+      if alphabet.include?(character)
+        alphabet.rotate(shifts[char_index % 4])[alphabet.index(character)]
+      else
+        character
+      end
+    end.join
+  end
+
   def encrypt(message, digits = key_digits, date = todays_date)
     alphabet = ('a'..'z').to_a << ' '
     shifts = generate_shifts(make_key(digits), make_offsets(date))
