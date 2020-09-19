@@ -36,4 +36,17 @@ class Enigma
     end.join
     { encryption: encoded, key: digits, date: date }
   end
+
+  def decrypt(message, digits, date = todays_date)
+    alphabet = ('a'..'z').to_a << ' '
+    shifts = generate_shifts(make_key(digits), make_offsets(date))
+    encoded = message.split('').map.with_index do |character, character_index|
+      if alphabet.include?(character)
+        alphabet.rotate(-shifts[character_index % 4])[alphabet.index(character)]
+      else
+        character
+      end
+    end.join
+    { decryption: encoded, key: digits, date: date }
+  end
 end
