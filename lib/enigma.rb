@@ -56,7 +56,23 @@ class Enigma
   def crack(message, date = todays_date)
     alphabet = ('a'..'z').to_a << ' '
     known_characters = ['d', 'n', 'e', ' ']
-    make_offsets(date)
+    actual_characters = message.split('')[-4..-1].reverse
+    known_indices = known_characters.map do |character|
+      alphabet.index(character)
+    end
+    actual_indices = actual_characters.map do |character|
+      alphabet.index(character)
+    end
+    shifts = actual_indices.zip(known_indices).map do |pair|
+      pair[0] - pair[1]
+    end
+    decoded = message.reverse.split('').map.with_index do |character, char_index|
+      if alphabet.include?(character)
+        alphabet.rotate(-shifts[char_index % 4])[alphabet.index(character)]
+      else
+        character
+      end
+    end.reverse.join
   end
 # possible generation of key from cracked digits
 # keys = [2, 27, 71, 15]
