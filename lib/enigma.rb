@@ -28,7 +28,11 @@ class Enigma
     alphabet = ('a'..'z').to_a << ' '
     shifts = generate_shifts(make_key(digits), make_offsets(date))
     encoded = message.split('').map.with_index do |character, character_index|
-      alphabet.rotate(shifts[character_index % 4])[alphabet.index(character)]
+      if alphabet.include?(character)
+        alphabet.rotate(shifts[character_index % 4])[alphabet.index(character)]
+      else
+        character
+      end
     end.join
     { encryption: encoded, key: digits, date: date }
   end
