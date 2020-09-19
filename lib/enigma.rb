@@ -25,25 +25,28 @@ class Enigma
   end
 
   def encrypt(message, digits = key_digits, date = todays_date)
-    alphabet = ("a".."z").to_a << " "
-    key = make_key(digits)
-    offset = make_offsets(date)
-    shifts = generate_shifts(key, offset)
-    counter = 0
-    # figure out how to refactor using with_index later
-    encoded = message.split('').map do |character|
-      counter += 1
-      if counter == 1
-        alphabet.rotate(shifts[0])[alphabet.index(character)]
-      elsif counter == 2
-        alphabet.rotate(shifts[1])[alphabet.index(character)]
-      elsif counter == 3
-        alphabet.rotate(shifts[2])[alphabet.index(character)]
+    alphabet = ('a'..'z').to_a << ' '
+    shifts = generate_shifts(make_key(digits), make_offsets(date))
+    encoded = message.split('').map.with_index do |character, character_index|
+      if alphabet.include?(character)
+        alphabet.rotate(shifts[character_index % 4])[alphabet.index(character)]
       else
-        counter = 0
-        alphabet.rotate(shifts[3])[alphabet.index(character)]
+        character
       end
     end.join
     { encryption: encoded, key: digits, date: date }
+  end
+
+  def decrypt(message, digits, date = todays_date)
+    alphabet = ('a'..'z').to_a << ' '
+    shifts = generate_shifts(make_key(digits), make_offsets(date))
+    decoded = message.split('').map.with_index do |character, character_index|
+      if alphabet.include?(character)
+        alphabet.rotate(-shifts[character_index % 4])[alphabet.index(character)]
+      else
+        character
+      end
+    end.join
+    { decryption: decoded, key: digits, date: date }
   end
 end
