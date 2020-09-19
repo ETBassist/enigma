@@ -23,9 +23,9 @@ class Enigma
     key.zip(offsets).map(&:sum)
   end
 
-  def shift_letters(message, shifts, default = "forward")
+  def shift_letters(message, shifts, default = 'forward')
     alphabet = ('a'..'z').to_a << ' '
-    if default != "forward"
+    if default != 'forward'
       shifts = shifts.map { |shift| -shift }
     end
     message.downcase.split('').map.with_index do |character, char_index|
@@ -45,7 +45,7 @@ class Enigma
 
   def decrypt(message, digits, date = todays_date)
     shifts = generate_shifts(make_key(digits), make_offsets(date))
-    decoded = shift_letters(message, shifts, "backwards")
+    decoded = shift_letters(message, shifts, 'backwards')
     { decryption: decoded, key: digits, date: date }
   end
 
@@ -56,7 +56,7 @@ class Enigma
     shifts = actual_characters.map.with_index do |character, char_index|
       alphabet.index(character) - alphabet.index(known_characters[char_index])
     end
-    decoded = shift_letters(message.reverse, shifts, "backwards").reverse
+    decoded = shift_letters(message.reverse, shifts, 'backwards').reverse
     { decryption: decoded, date: date, key: 'key here' }
   end
 end
