@@ -57,11 +57,17 @@ class EnigmaTest < MiniTest::Test
   end
  
   def test_it_can_crack_text_with_given_date
+    skip
     expected = {
       decryption: "hello world end",
       date: "291018",
       key: "08304"
     }
     assert_equal expected, @enigma.crack("vjqtbeaweqihssi", "291018")
+  end
+  
+  def test_it_can_shift_letters
+    shifts = [3, 27, 73, 20]
+    expected "keder ohulw!", @enigma.shift_letters('HELLO WORLD!', shifts)
   end
 end
