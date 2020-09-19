@@ -69,3 +69,4 @@ class Enigma
     end.reverse.join
     { decryption: decoded, date: date, key: 'key here' }
   end
+end
