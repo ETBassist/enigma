@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require 'mocha/minitest'
 
 require './lib/enigma'
@@ -18,7 +17,7 @@ class EnigmaTest < MiniTest::Test
     assert_equal '091720', @enigma.todays_date
   end
 
-  def test_it_can_make_key
+  def test_it_can_make_key_digits
     numbers = (0..9).to_a
     @enigma.key_digits.split('').each do |number|
       assert_includes numbers, number.to_i
@@ -37,5 +36,14 @@ class EnigmaTest < MiniTest::Test
     keys = [2, 27, 71, 15]
     offsets = [1, 0, 2, 5]
     assert_equal [3, 27, 73, 20], @enigma.generate_shifts(keys, offsets)
+  end
+
+  def test_it_can_encrypt_text_with_given_parameters
+    expected = {
+      encryption: "keder ohulw",
+      key: "02715",
+      date: "040895"
+    }
+    assert_equal expected, @enigma.encrypt("hello world", "02715", "040895")
   end
 end
