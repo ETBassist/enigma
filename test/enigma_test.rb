@@ -44,4 +44,9 @@ class EnigmaTest < MiniTest::Test
     assert_equal 'keder ohulw!', @enigma.shift_letters('HELLO WORLD!', shifts)
     assert_equal 'hello world!', @enigma.shift_letters('keder ohulw!', shifts, 'backwards')
   end
+  
+  def test_it_can_brute_force_key
+    encrypted = @enigma.force_key('hello world end', 'vjqtbeaweqihssi', '291018')
+    assert_equal '08304', encrypted[:key]
+  end
 end
