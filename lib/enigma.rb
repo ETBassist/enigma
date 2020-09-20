@@ -31,12 +31,17 @@ class Enigma < Rotor
       alphabet.index(character) - alphabet.index(known_characters[char_index])
     end
     decoded = shift_letters(message.reverse, shifts, 'backwards').reverse
-    number = "00000"
-    encrypted = encrypt(decoded, number, date)
-    until encrypted[:encryption] == message
-      number = number.next
-      encrypted = encrypt(decoded, number, date)
-    end
+    encrypted = force_key(decoded, message, date)
     { decryption: decoded, date: date, key: encrypted[:key] }
+  end
+
+  def force_key(decrypted_msg, encrypted_msg, date)
+    number = "00000"
+    encrypted = encrypt(decrypted_msg, number, date)
+    until encrypted[:encryption] == encrypted_msg
+      number = number.next
+      encrypted = encrypt(decrypted_msg, number, date)
+    end
+    encrypted
   end
 end
