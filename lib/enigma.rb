@@ -4,6 +4,7 @@ require './lib/rotor'
 
 class Enigma < Rotor
   def initialize
+    super()
     @key_gen = KeyGenerator.new
   end
 
@@ -24,11 +25,10 @@ class Enigma < Rotor
   end
 
   def crack(message, date = todays_date)
-    alphabet = ('a'..'z').to_a << ' '
     known_characters = ['d', 'n', 'e', ' ']
     actual_characters = message.split('')[-4..-1].reverse
     shifts = actual_characters.map.with_index do |character, char_index|
-      alphabet.index(character) - alphabet.index(known_characters[char_index])
+      @alphabet.index(character) - @alphabet.index(known_characters[char_index])
     end
     decoded = shift_letters(message.reverse, shifts, 'backwards').reverse
     encrypted = force_key(decoded, message, date)
