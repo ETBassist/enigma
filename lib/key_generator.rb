@@ -12,4 +12,8 @@ class KeyGenerator
       pair.join.to_i
     end
   end
+
+  def make_offsets(date)
+    (date.to_i**2).digits.reverse[-4..-1]
+  end
 end
