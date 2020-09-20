@@ -31,4 +31,10 @@ class KeyGeneratorTest < MiniTest::Test
   def test_it_can_generate_offset_from_given_date
     assert_equal [1, 0, 2, 5], @key_generator.make_offsets('040895')
   end
+
+  def test_can_generate_shifts
+    keys = [2, 27, 71, 15]
+    offsets = [1, 0, 2, 5]
+    assert_equal [3, 27, 73, 20], @key_generator.generate_shifts(keys, offsets)
+  end
 end
