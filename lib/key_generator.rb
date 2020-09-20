@@ -1,6 +1,8 @@
+require 'Date'
+
 class KeyGenerator
   def todays_date
-    Date.today.strftime('%m%d%y')
+    Date.today.strftime('%d%m%y')
   end
 
   def key_digits

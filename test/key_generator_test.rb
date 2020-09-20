@@ -14,7 +14,7 @@ class KeyGeneratorTest < MiniTest::Test
 
   def test_it_tracks_date
     Date.stubs(:today).returns(Date.new(2020, 9, 17))
-    assert_equal '091720', @key_generator.todays_date
+    assert_equal '170920', @key_generator.todays_date
   end
 
   def test_it_can_make_key_digits
