@@ -1,35 +1,17 @@
 require 'Date'
+require './lib/key_generator'
 
-class Enigma
-  def todays_date
-    Date.today.strftime('%m%d%y')
-  end
-
-  def key_digits
-    5.times.map { rand(9) }.join
-  end
-
-  def make_key(digits)
-    digits.split('').each_cons(2).map do |pair|
-      pair.join.to_i
-    end
-  end
-
-  def make_offsets(date)
-    (date.to_i**2).digits.reverse[-4..-1]
-  end
-
-  def generate_shifts(key, offsets)
-    key.zip(offsets).map(&:sum)
+class Enigma < KeyGenerator
+  def initialize
+    @alphabet = ('a'..'z').to_a << ' '
   end
 
   def shift_letters(message, shifts, default = 'forward')
-    alphabet = ('a'..'z').to_a << ' '
     shifts = shifts.map(&:-@) if default != 'forward'
     split_message = message.downcase.split('')
     split_message.map.with_index do |character, char_index|
-      if alphabet.include?(character)
-        alphabet.rotate(shifts[char_index % 4])[alphabet.index(character)]
+      if @alphabet.include?(character)
+        @alphabet.rotate(shifts[char_index % 4])[@alphabet.index(character)]
       else
         character
       end
@@ -49,11 +31,10 @@ class Enigma
   end
 
   def crack(message, date = todays_date)
-    alphabet = ('a'..'z').to_a << ' '
     known_characters = ['d', 'n', 'e', ' ']
     actual_characters = message.split('')[-4..-1].reverse
     shifts = actual_characters.map.with_index do |character, char_index|
-      alphabet.index(character) - alphabet.index(known_characters[char_index])
+      @alphabet.index(character) - @alphabet.index(known_characters[char_index])
     end
     decoded = shift_letters(message.reverse, shifts, 'backwards').reverse
     number = "00000"
