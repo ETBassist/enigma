@@ -6,4 +6,10 @@ class KeyGenerator
   def key_digits
     5.times.map { rand(9) }.join
   end
+
+  def make_key(digits)
+    digits.split('').each_cons(2).map do |pair|
+      pair.join.to_i
+    end
+  end
 end
