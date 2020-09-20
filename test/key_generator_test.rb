@@ -23,4 +23,8 @@ class KeyGeneratorTest < MiniTest::Test
       assert_includes numbers, number.to_i
     end
   end
+
+  def test_can_make_key_from_given_digits
+    assert_equal [24, 46, 68, 80], @key_generator.make_key('24680')
+  end
 end
