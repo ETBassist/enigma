@@ -1,22 +1,10 @@
 require 'Date'
 require './lib/key_generator'
+require './lib/rotor'
 
-class Enigma
+class Enigma < Rotor
   def initialize
-    @alphabet = ('a'..'z').to_a << ' '
     @key_gen = KeyGenerator.new
-  end
-
-  def shift_letters(message, shifts, default = 'forward')
-    shifts = shifts.map(&:-@) if default != 'forward'
-    split_message = message.downcase.split('')
-    split_message.map.with_index do |character, char_index|
-      if @alphabet.include?(character)
-        @alphabet.rotate(shifts[char_index % 4])[@alphabet.index(character)]
-      else
-        character
-      end
-    end.join
   end
 
   def encrypt(message, digits = @key_gen.key_digits, date = @key_gen.todays_date)
@@ -36,10 +24,11 @@ class Enigma
   end
 
   def crack(message, date = todays_date)
+    alphabet = ('a'..'z').to_a << ' '
     known_characters = ['d', 'n', 'e', ' ']
     actual_characters = message.split('')[-4..-1].reverse
     shifts = actual_characters.map.with_index do |character, char_index|
-      @alphabet.index(character) - @alphabet.index(known_characters[char_index])
+      alphabet.index(character) - alphabet.index(known_characters[char_index])
     end
     decoded = shift_letters(message.reverse, shifts, 'backwards').reverse
     number = "00000"
