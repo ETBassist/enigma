@@ -1,9 +1,10 @@
 require 'Date'
 require './lib/key_generator'
 
-class Enigma < KeyGenerator
+class Enigma
   def initialize
     @alphabet = ('a'..'z').to_a << ' '
+    @key_gen = KeyGenerator.new
   end
 
   def shift_letters(message, shifts, default = 'forward')
@@ -18,14 +19,18 @@ class Enigma < KeyGenerator
     end.join
   end
 
-  def encrypt(message, digits = key_digits, date = todays_date)
-    shifts = generate_shifts(make_key(digits), make_offsets(date))
+  def encrypt(message, digits = @key_gen.key_digits, date = @key_gen.todays_date)
+    key = @key_gen.make_key(digits)
+    offsets = @key_gen.make_offsets(date)
+    shifts = @key_gen.generate_shifts(key, offsets)
     encoded = shift_letters(message, shifts)
     { encryption: encoded, key: digits, date: date }
   end
 
   def decrypt(message, digits, date = todays_date)
-    shifts = generate_shifts(make_key(digits), make_offsets(date))
+    key = @key_gen.make_key(digits)
+    offsets = @key_gen.make_offsets(date)
+    shifts = @key_gen.generate_shifts(key, offsets)
     decoded = shift_letters(message, shifts, 'backwards')
     { decryption: decoded, key: digits, date: date }
   end
