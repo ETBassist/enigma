@@ -18,7 +18,7 @@ class EnigmaTest < MiniTest::Test
       key: '02715',
       date: '040895'
     }
-    assert_equal expected, @enigma.encrypt('HELLO WORLD!', '02715', '040895')
+    assert_equal expected, @enigma.encrypt('HELLO WORLD!', '02715', '04/08/95')
   end
 
   def test_it_can_decrypt_text_with_given_parameters
@@ -27,7 +27,7 @@ class EnigmaTest < MiniTest::Test
       key: '02715',
       date: '040895'
     }
-    assert_equal expected, @enigma.decrypt('keder ohulw!', '02715', '040895')
+    assert_equal expected, @enigma.decrypt('keder ohulw!', '02715', '04/08/95')
   end
 
   def test_it_can_crack_text_with_given_date
@@ -39,12 +39,6 @@ class EnigmaTest < MiniTest::Test
     assert_equal expected, @enigma.crack('vjqtbeaweqihssi', '291018')
   end
 
-  def test_it_can_shift_letters
-    shifts = [3, 27, 73, 20]
-    assert_equal 'keder ohulw!', @enigma.shift_letters('HELLO WORLD!', shifts)
-    assert_equal 'hello world!', @enigma.shift_letters('keder ohulw!', shifts, 'backwards')
-  end
-  
   def test_it_can_brute_force_key
     encrypted = @enigma.force_key('hello world end', 'vjqtbeaweqihssi', '291018')
     assert_equal '08304', encrypted[:key]
