@@ -19,7 +19,7 @@ class KeyGeneratorTest < MiniTest::Test
 
   def test_it_can_make_key_digits
     numbers = (0..9).to_a
-    @enigma.key_digits.split('').each do |number|
+    @key_generator.key_digits.split('').each do |number|
       assert_includes numbers, number.to_i
     end
   end
