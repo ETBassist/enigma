@@ -16,4 +16,8 @@ class KeyGenerator
   def make_offsets(date)
     (date.to_i**2).digits.reverse[-4..-1]
   end
+
+  def generate_shifts(key, offsets)
+    key.zip(offsets).map(&:sum)
+  end
 end
