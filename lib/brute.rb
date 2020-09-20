@@ -1,6 +1,4 @@
 require './lib/enigma'
-#require './lib/rotor'
-#require './lib/key_generator'
 
 class Brute < Enigma
   def initialize
