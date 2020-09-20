@@ -55,23 +55,12 @@ class Enigma
       alphabet.index(character) - alphabet.index(known_characters[char_index])
     end
     decoded = shift_letters(message.reverse, shifts, 'backwards').reverse
-    ordered_shifts = shifts.reverse.rotate(-message.length)
-    offsets = make_offsets(date)
-    key = []
-    ordered_shifts.each.with_index do |shift, shift_index|
-      shift -= offsets[shift_index]
-        if !shift_index.zero?
-          until shift.abs.digits.last == key[shift_index - 1].digits.first && shift.digits.length > 1
-            shift += 27
-            break if key[shift_index - 1].digits.first.zero?
-          end
-        end
-      key << shift
+    number = "00000"
+    encrypted = encrypt(decoded, number, date)
+    until encrypted[:encryption] == message
+      number = number.next
+      encrypted = encrypt(decoded, number, date)
     end
-    key_digits = key.map do |number|
-      number.digits.reverse
-    end.flatten.uniq
-    key_digits.unshift(0) if key_digits.length == 4
-    { decryption: decoded, date: date, key: key_digits.join }
+    { decryption: decoded, date: date, key: encrypted[:key] }
   end
 end
