@@ -27,4 +27,8 @@ class KeyGeneratorTest < MiniTest::Test
   def test_can_make_key_from_given_digits
     assert_equal [24, 46, 68, 80], @key_generator.make_key('24680')
   end
+
+  def test_it_can_generate_offset_from_given_date
+    assert_equal [1, 0, 2, 5], @key_generator.make_offsets('040895')
+  end
 end
