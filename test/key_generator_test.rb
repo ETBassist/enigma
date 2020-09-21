@@ -37,4 +37,8 @@ class KeyGeneratorTest < MiniTest::Test
     offsets = [1, 0, 2, 5]
     assert_equal [3, 27, 73, 20], @key_generator.generate_shifts(keys, offsets)
   end
+
+  def test_can_parse_date_and_key_into_shifts
+    assert_equal [3, 27, 73, 20], @key_generator.parse_inputs('24680', '040895')
+  end
 end
