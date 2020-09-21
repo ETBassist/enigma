@@ -22,4 +22,10 @@ class KeyGenerator
   def generate_shifts(key, offsets)
     key.zip(offsets).map(&:sum)
   end
+  
+  def parse_inputs(digits, date)
+    key = make_key(digits)
+    offsets = make_offsets(date.delete('/'))
+    generate_shifts(key, offsets)
+  end
 end
