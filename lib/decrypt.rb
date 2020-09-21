@@ -2,8 +2,6 @@
 
 require './lib/enigma'
 
-ARGV
-
 encrypted_message = File.open(ARGV[0], 'r')
 encrypted_text = encrypted_message.read
 encrypted_message.close
