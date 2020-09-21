@@ -9,14 +9,14 @@ class Enigma < Rotor
 
   def encrypt(message, digits = @key_gen.key_digits, date = @key_gen.todays_date)
     shifts = @key_gen.parse_inputs(digits, date)
-    encoded = shift_letters(message, shifts)
-    { encryption: encoded, key: digits, date: date.delete('/') }
+    encoded_message = shift_letters(message, shifts)
+    { encryption: encoded_message, key: digits, date: date.delete('/') }
   end
 
   def decrypt(message, digits, date = @key_gen.todays_date)
     shifts = @key_gen.parse_inputs(digits, date)
-    decoded = shift_letters(message, shifts, 'backwards')
-    { decryption: decoded, key: digits, date: date.delete('/') }
+    decoded_message = shift_letters(message, shifts, 'backwards')
+    { decryption: decoded_message, key: digits, date: date.delete('/') }
   end
 
   def crack(message, date = @key_gen.todays_date)
