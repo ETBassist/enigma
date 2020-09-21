@@ -31,6 +31,7 @@ class EnigmaTest < MiniTest::Test
   end
 
   def test_it_can_crack_text_with_given_date
+    @enigma.stubs(:force_key).returns('08304')
     expected = {
       decryption: 'hello world end',
       date: '291018',
@@ -40,7 +41,7 @@ class EnigmaTest < MiniTest::Test
   end
 
   def test_it_can_brute_force_key
-    encrypted = @enigma.force_key('hello world end', 'vjqtbeaweqihssi', '291018')
-    assert_equal '08304', encrypted[:key]
+    cracked_key = @enigma.force_key('hello world end', 'vjqtbeaweqihssi', '291018')
+    assert_equal '08304', cracked_key
   end
 end
