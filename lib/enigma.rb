@@ -1,4 +1,3 @@
-require 'Date'
 require './lib/key_generator'
 require './lib/rotor'
 
