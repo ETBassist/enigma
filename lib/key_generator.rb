@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'Date'
-
 # In charge of all methods pertaining to generating shifts
 class KeyGenerator
   def todays_date
