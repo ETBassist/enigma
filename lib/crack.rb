@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './lib/enigma'
 
 arguments = ARGV
@@ -5,7 +7,7 @@ encrypted_filename = arguments[0]
 file_to_write = arguments[1]
 date = arguments[2]
 
-encrypted_message = File.open(encrypted_filename, "r")
+encrypted_message = File.open(encrypted_filename, 'r')
 encrypted_text = encrypted_message.read
 encrypted_message.close
 

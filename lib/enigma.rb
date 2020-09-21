@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require './lib/key_generator'
 require './lib/rotor'
 
+# Contains logic for how characters are to be shifted
 class Enigma < Rotor
   def initialize
     super()
@@ -31,7 +34,7 @@ class Enigma < Rotor
   end
 
   def force_key(decrypted_msg, encrypted_msg, date)
-    number = "00000"
+    number = '00000'
     encrypted = encrypt(decrypted_msg, number, date)
     until encrypted[:encryption] == encrypted_msg
       number = number.next

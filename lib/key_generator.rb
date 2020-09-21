@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'Date'
 
+# In charge of all methods pertaining to generating shifts
 class KeyGenerator
   def todays_date
     Date.today.strftime('%d%m%y')
@@ -22,7 +25,7 @@ class KeyGenerator
   def generate_shifts(key, offsets)
     key.zip(offsets).map(&:sum)
   end
-  
+
   def parse_inputs(digits, date)
     key = make_key(digits)
     offsets = make_offsets(date.delete('/'))

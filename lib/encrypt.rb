@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require './lib/enigma'
 
 # ARGV saves additional arguments given from command line as an array
 ARGV
 
-message = File.open(ARGV[0], "r")
+message = File.open(ARGV[0], 'r')
 text = message.read
 message.close
 

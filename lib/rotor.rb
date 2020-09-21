@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Shifts letters to new locations
 class Rotor
   def initialize
     @alphabet = ('a'..'z').to_a << ' '
