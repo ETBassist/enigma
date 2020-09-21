@@ -30,8 +30,8 @@ class Enigma < Rotor
       @alphabet.index(character) - @alphabet.index(known_characters[char_index])
     end
     decoded = shift_letters(message.reverse, shifts, 'backwards').reverse
-    encrypted = force_key(decoded, message, date)
-    { decryption: decoded, date: date, key: encrypted[:key] }
+    cracked_key = force_key(decoded, message, date)
+    { decryption: decoded, date: date, key: cracked_key }
   end
 
   def force_key(decrypted_msg, encrypted_msg, date)
@@ -41,6 +41,6 @@ class Enigma < Rotor
       number = number.next
       encrypted = encrypt(decrypted_msg, number, date)
     end
-    encrypted
+    encrypted[:key]
   end
 end
