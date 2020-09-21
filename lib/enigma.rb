@@ -8,17 +8,13 @@ class Enigma < Rotor
   end
 
   def encrypt(message, digits = @key_gen.key_digits, date = @key_gen.todays_date)
-    key = @key_gen.make_key(digits)
-    offsets = @key_gen.make_offsets(date.delete('/'))
-    shifts = @key_gen.generate_shifts(key, offsets)
+    shifts = @key_gen.parse_inputs(digits, date)
     encoded = shift_letters(message, shifts)
     { encryption: encoded, key: digits, date: date.delete('/') }
   end
 
   def decrypt(message, digits, date = @key_gen.todays_date)
-    key = @key_gen.make_key(digits)
-    offsets = @key_gen.make_offsets(date.delete('/'))
-    shifts = @key_gen.generate_shifts(key, offsets)
+    shifts = @key_gen.parse_inputs(digits, date)
     decoded = shift_letters(message, shifts, 'backwards')
     { decryption: decoded, key: digits, date: date.delete('/') }
   end
