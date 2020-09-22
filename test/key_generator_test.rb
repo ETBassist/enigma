@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './test/test_helper'
 
 require './lib/key_generator'
@@ -36,5 +38,9 @@ class KeyGeneratorTest < MiniTest::Test
     keys = [2, 27, 71, 15]
     offsets = [1, 0, 2, 5]
     assert_equal [3, 27, 73, 20], @key_generator.generate_shifts(keys, offsets)
+  end
+
+  def test_can_parse_date_and_key_into_shifts
+    assert_equal [3, 27, 73, 20], @key_generator.parse_inputs('02715', '040895')
   end
 end
