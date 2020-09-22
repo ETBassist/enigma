@@ -27,8 +27,6 @@ class KeyGenerator
   end
 
   def parse_inputs(digits, date)
-    key = make_key(digits)
-    offsets = make_offsets(date.delete('/'))
-    generate_shifts(key, offsets)
+    generate_shifts(make_key(digits), make_offsets(date.delete('/')))
   end
 end
